@@ -1,0 +1,4 @@
+add_executable(test_instructions test.cpp)
+target_include_directories(test_instructions PRIVATE ${PROJECT_SOURCE_DIR}/lib/catch2)
+target_link_libraries(test_instructions PRIVATE chip8_lib)
+add_test(instructions test_instructions)
