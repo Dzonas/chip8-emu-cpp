@@ -1,6 +1,8 @@
 # CHIP-8 emulator written in C++
 This is my toy project - a CHIP-8 emulator. Work in progress.
 
+![main window](https://github.com/Dzonas/chip8-emu-cpp/blob/master/screenshots/main_window.png)
+
 # Requirements
 - C++17 compiler/standard library 
 - CMake >= 3.13
