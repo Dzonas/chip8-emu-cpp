@@ -16,7 +16,7 @@ void Emulator::run(std::chrono::duration<double> delta) {
     }
 }
 
-void Emulator::load_config(const Conf &config) {
+void Emulator::load_config(const RomConf &config) {
     std::ifstream rom(config.rom_location, std::ifstream::binary);
     if (!rom.is_open())
         throw std::runtime_error("unable to open rom file at: " + config.rom_location);
@@ -30,4 +30,12 @@ void Emulator::load_config(const Conf &config) {
     cpu.wrapping = config.wrapping;
 
     cpu.load_rom(buffer);
+}
+
+void Emulator::set_key(const std::string &key, const bool value) {
+    try {
+        cpu.key(keymap.at(key)) = value;
+    } catch (std::out_of_range &) {
+        throw std::runtime_error("unknown key");
+    }
 }

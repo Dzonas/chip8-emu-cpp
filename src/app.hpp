@@ -1,13 +1,12 @@
 #ifndef CHIP8_EMU_CPP_APP_HPP
 #define CHIP8_EMU_CPP_APP_HPP
 
+#include <string>
+#include <map>
 #include <SDL2/SDL.h>
 #include "emulator.hpp"
 #include "conf.hpp"
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 640; // half the width
-const double SCREEN_UPDATE_PERIOD = 1.0 / 60.0; // 1 / Hz
 
 class App {
     SDL_Window *window = nullptr;
@@ -15,14 +14,17 @@ class App {
     SDL_Event e{};
 
     Emulator chip8_emu;
+    double screen_update_period;
+    std::map<SDL_Keycode, std::string> keymap; // maps from pressed key to cpu key name
+
     bool running = false;
 
     void process_input();
 
 public:
-    App();
+    explicit App(const AppConf& conf);
 
-    void init_emulation(const Conf &config);
+    void init_emulation(const RomConf &config);
 
     void run();
 

@@ -10,17 +10,16 @@ using json = nlohmann::json;
 
 const std::string RESOURCE_DIR = "resources";
 
+json load_configuration_file(const std::string &name);
+
 int main(int argc, char *argv[]) {
-    std::filesystem::path resource_path = std::filesystem::current_path().append(RESOURCE_DIR);
     if (argc < 2) {
         std::cout << "no rom to launch" << std::endl;
         return 0;
     }
 
-    std::ifstream i(std::filesystem::path(resource_path).append("roms.json"));
-    json j;
-    i >> j;
-    i.close();
+    // Load rom info
+    json j = load_configuration_file("roms.json");
 
     std::string rom_name = argv[1];
     json rom_data;
@@ -32,11 +31,26 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    Conf config(rom_data, resource_path);
+    RomConf config(rom_data, std::filesystem::current_path().append(RESOURCE_DIR));
 
-    App app;
+    // Load app config
+    json k = load_configuration_file("app_conf.json");
+    AppConf app_configuration(k);
+
+    App app(app_configuration);
     app.init_emulation(config);
     app.run();
 
     return 0;
+}
+
+json load_configuration_file(const std::string &name) {
+    std::filesystem::path resource_path = std::filesystem::current_path().append(RESOURCE_DIR);
+    resource_path.append(name);
+    std::ifstream configuration_file(resource_path);
+    json configuration_json;
+    configuration_file >> configuration_json;
+    configuration_file.close();
+
+    return configuration_json;
 }
