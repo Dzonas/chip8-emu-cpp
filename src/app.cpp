@@ -46,15 +46,18 @@ void App::run() {
         SDL_RenderClear(renderer);
 
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        auto hmm = chip8_emu.cpu.get_display();
+        auto display = chip8_emu.cpu.get_display();
+        std::vector<SDL_Point> points_to_draw;
 
         for (unsigned int y = 0; y < Chip8::SCREEN_HEIGHT; y++) {
             for (unsigned int x = 0; x < Chip8::SCREEN_WIDTH; x++) {
-                if (hmm[y * Chip8::SCREEN_WIDTH + x]) {
-                    SDL_RenderDrawPoint(renderer, static_cast<int>(x), static_cast<int>(y));
+                if (display[y * Chip8::SCREEN_WIDTH + x]) {
+                    points_to_draw.push_back(SDL_Point {static_cast<int>(x), static_cast<int>(y)});
                 }
             }
         }
+
+        SDL_RenderDrawPoints(renderer, points_to_draw.data(), points_to_draw.size());
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> delta = end - start;
