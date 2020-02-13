@@ -85,69 +85,6 @@ void App::process_input() {
         }
     }
 }
-//void App::process_input() {
-//    while (SDL_PollEvent(&e) != 0) {
-//        if (e.type == SDL_QUIT)
-//            running = false;
-//        else if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP) {
-//            unsigned char id;
-//            switch (e.key.keysym.sym) {
-//                case SDLK_1:
-//                    id = 0;
-//                    break;
-//                case SDLK_2:
-//                    id = 1;
-//                    break;
-//                case SDLK_3:
-//                    id = 2;
-//                    break;
-//                case SDLK_4:
-//                    id = 3;
-//                    break;
-//                case SDLK_q:
-//                    id = 4;
-//                    break;
-//                case SDLK_w:
-//                    id = 5;
-//                    break;
-//                case SDLK_e:
-//                    id = 6;
-//                    break;
-//                case SDLK_r:
-//                    id = 7;
-//                    break;
-//                case SDLK_a:
-//                    id = 8;
-//                    break;
-//                case SDLK_s:
-//                    id = 9;
-//                    break;
-//                case SDLK_d:
-//                    id = 10;
-//                    break;
-//                case SDLK_f:
-//                    id = 11;
-//                    break;
-//                case SDLK_z:
-//                    id = 12;
-//                    break;
-//                case SDLK_x:
-//                    id = 13;
-//                    break;
-//                case SDLK_c:
-//                    id = 14;
-//                    break;
-//                case SDLK_v:
-//                    id = 15;
-//                    break;
-//                default:
-//                    return;
-//            }
-//
-//            chip8_emu.cpu.key(id) = e.type == SDL_KEYDOWN;
-//        }
-//    }
-//}
 
 void App::init_emulation(const RomConf &config) {
     chip8_emu.load_config(config);
