@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include "emulator.hpp"
 #include "conf.hpp"
+#include "beeper.hpp"
 
 
 class App {
@@ -14,6 +15,7 @@ class App {
     SDL_Event e{};
 
     Emulator chip8_emu;
+    Beeper beeper;
     double screen_update_period;
     std::map<SDL_Keycode, std::string> keymap; // maps from pressed key to cpu key name
 

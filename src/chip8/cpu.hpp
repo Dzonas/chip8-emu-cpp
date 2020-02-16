@@ -64,6 +64,8 @@ namespace Chip8 {
         bool &key(unsigned int id);
 
         const std::array<bool, SCREEN_WIDTH * SCREEN_HEIGHT> &get_display();
+
+        unsigned char sound_timer() const { return ST; }
     };
 }
 

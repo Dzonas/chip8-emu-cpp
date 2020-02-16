@@ -36,6 +36,7 @@ public:
     void load_config(const RomConf &config);
     void set_key(const std::string &key, bool value);
     void run(std::chrono::duration<double> delta);
+    bool sound_on() { return cpu.sound_timer() > 0; }
 };
 
 

@@ -4,7 +4,7 @@
 #include "app.hpp"
 
 App::App(const AppConf& conf) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
         throw std::runtime_error(SDL_GetError());
 
     window = SDL_CreateWindow("Chip8 emulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -18,6 +18,8 @@ App::App(const AppConf& conf) {
 
     if (SDL_RenderSetLogicalSize(renderer, Chip8::SCREEN_WIDTH, Chip8::SCREEN_HEIGHT) < 0)
         throw std::runtime_error(SDL_GetError());
+
+    beeper.init();
 
     screen_update_period = 1.0 / conf.refresh_rate;
 
@@ -63,6 +65,11 @@ void App::run() {
         std::chrono::duration<double> delta = end - start;
         start = std::chrono::high_resolution_clock::now();
         chip8_emu.run(delta);
+
+        if(chip8_emu.sound_on())
+            beeper.play();
+        else
+            beeper.stop();
 
         SDL_RenderPresent(renderer);
 
