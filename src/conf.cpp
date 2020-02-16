@@ -1,3 +1,4 @@
+#include <iostream>
 #include "conf.hpp"
 
 using json = nlohmann::json;
@@ -38,11 +39,19 @@ AppConf::AppConf(nlohmann::json app_data) {
         screen_width = app_data.at("screen_width");
     } catch (json::out_of_range &) {
         // dont do anything
+    } catch (json::type_error &e) {
+        std::cerr << "Error during screen width parsing:" << std::endl;
+        std::cerr << e.what() << std::endl;
+        std::cerr << "Using default screen width." << std::endl;
     }
     try {
         screen_height = app_data.at("screen_height");
     } catch (json::out_of_range &) {
         // dont do anything
+    }  catch (json::type_error &e) {
+        std::cerr << "Error during screen height parsing:" << std::endl;
+        std::cerr << e.what() << std::endl;
+        std::cerr << "Using default screen height." << std::endl;
     }
     try {
         refresh_rate = app_data.at("refresh_rate");
@@ -50,6 +59,10 @@ AppConf::AppConf(nlohmann::json app_data) {
             throw std::runtime_error("refresh rate can't be smaller than 0");
     } catch (json::out_of_range &) {
         // dont do anything
+    }  catch (json::type_error &e) {
+        std::cerr << "Error during screen refresh rate parsing:" << std::endl;
+        std::cerr << e.what() << std::endl;
+        std::cerr << "Using default screen refresh rate." << std::endl;
     }
 
     try {
@@ -59,6 +72,10 @@ AppConf::AppConf(nlohmann::json app_data) {
                 keymap[key_name] = user_keymap.at(key_name);
             } catch (json::out_of_range &) {
                 throw std::runtime_error("must provide either no keymap at all or set all keys to some value");
+            } catch (json::type_error &e) {
+                std::cerr << "Error during keymap parsing at key " << key_name << ":" << std::endl;
+                std::cerr << e.what() << std::endl;
+                std::cerr << "Using default mapping for key " << key_name << "." << std::endl;
             }
         }
     } catch (json::out_of_range &) {
