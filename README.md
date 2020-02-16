@@ -26,7 +26,7 @@ where ROM_NAME is name of the file to run in the resources/roms directory.
 
 # TODO
 - [ ] Improve argument handling
-- [ ] Configuration file (resolution, keymap etc.)
+- [x] Configuration file (resolution, keymap etc.)
 - [x] Sound
 - [ ] Documentation
 - [ ] Tests
