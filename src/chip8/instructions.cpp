@@ -204,11 +204,8 @@ void Chip8::Instruction::i_Dxyn(Chip8::CPU &cpu, unsigned short opcode) {
   unsigned char y = (opcode & 0x00F0u) >> 4u;
   unsigned char n = opcode & 0x000Fu;
 
-//    if (cpu.I + n - 1 >= 4096)
-//        throw std::runtime_error("tried to access sprite out of memory");
-//
-//    if (cpu.reg[x] > 0x3F || cpu.reg[y] > 0x1F)
-//        throw std::runtime_error("tried to draw out of bounds");
+  if (cpu.I + n > Chip8::MEMORY_SIZE)
+	throw std::runtime_error("tried to access sprite out of memory");
 
   unsigned char vf_flag = 0;
 
