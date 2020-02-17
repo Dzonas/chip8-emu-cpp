@@ -17,8 +17,8 @@ const int DEFAULT_SCREEN_WIDTH = 1280;
 const int DEFAULT_SCREEN_HEIGHT = 640; // half the width
 const double DEFAULT_REFRESH_RATE = 60; // Hz
 
-const std::array<std::string, 16>
-    DEFAULT_KEYS{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"}; // default key mapping
+static const std::array<std::string, 16>
+	DEFAULT_KEYS{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"}; // default key mapping
 
 /**
  * \brief Configuration struct for emulator.

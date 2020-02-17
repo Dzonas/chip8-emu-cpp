@@ -14,8 +14,8 @@ json load_configuration_file(const std::string &name);
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    std::cout << "no rom to launch" << std::endl;
-    return 0;
+	std::cout << "no rom to launch" << std::endl;
+	return 0;
   }
 
   // Load rom info
@@ -25,10 +25,10 @@ int main(int argc, char *argv[]) {
   json rom_data;
 
   try {
-    rom_data = j[rom_name];
+	rom_data = j[rom_name];
   } catch (json::out_of_range &) {
-    std::cerr << "got unknown rom" << std::endl;
-    return 0;
+	std::cerr << "got unknown rom" << std::endl;
+	return 0;
   }
 
   RomConf config(rom_data, std::filesystem::current_path().append(RESOURCE_DIR));
