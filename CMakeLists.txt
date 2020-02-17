@@ -12,6 +12,13 @@ enable_testing()
 add_subdirectory(src)
 add_subdirectory(tests)
 
+add_custom_target(
+        docs ALL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
+        COMMAND doxygen
+        VERBATIM
+)
+
 install(
         TARGETS chip8_emu_cpp
         CONFIGURATIONS Debug Release

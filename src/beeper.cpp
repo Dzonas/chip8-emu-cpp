@@ -25,7 +25,7 @@ void Beeper::init() {
   desired.format = AUDIO_S16SYS;
   desired.channels = 1;
   desired.samples = 2048;
-  desired.callback = audio_callback;  // you wrote this function elsewhere.
+  desired.callback = audio_callback;
   desired.userdata = this;
   dev = SDL_OpenAudioDevice(nullptr, 0, &desired, &obtained, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
   if (dev == 0)
