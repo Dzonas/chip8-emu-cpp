@@ -24,11 +24,18 @@ build/src/chip8_emu_cpp <ROM_NAME>
 ```
 where ROM_NAME is name of the file to run in the resources/roms directory.
 
+# Building documentation
+In build directory:
+```
+cmake --build . --target docs
+```
+Files are generated in <project-root>/docs/html
+
 # TODO
 - [ ] Improve argument handling
 - [x] Configuration file (resolution, keymap etc.)
 - [x] Sound
-- [ ] Documentation
+- [x] Documentation
 - [ ] Tests
 
 # Reference
