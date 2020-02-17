@@ -1,12 +1,12 @@
 #include <cstdlib>
 #include "instructions.hpp"
 
-void Chip8::Instruction::i_00E0(Chip8::CPU &cpu, unsigned short opcode) {
+void Chip8::Instruction::i_00E0(Chip8::CPU &cpu, [[maybe_unused]] unsigned short opcode) {
   cpu.display = {false};
   cpu.PC += 2;
 }
 
-void Chip8::Instruction::i_00EE(Chip8::CPU &cpu, unsigned short opcode) {
+void Chip8::Instruction::i_00EE(Chip8::CPU &cpu, [[maybe_unused]] unsigned short opcode) {
   if (cpu.SP == 0)
 	throw std::runtime_error("stack underflow");
 
@@ -195,7 +195,7 @@ void Chip8::Instruction::i_Bnnn(Chip8::CPU &cpu, unsigned short opcode) {
 void Chip8::Instruction::i_Cxkk(Chip8::CPU &cpu, unsigned short opcode) {
   unsigned short x = (opcode & 0x0F00u) >> 8u;
   unsigned char k = opcode & 0x00FFu;
-  cpu.reg[x] = (std::rand() % 255u) & k;
+  cpu.reg[x] = (static_cast<unsigned int>(std::rand()) % 255u) & k;
   cpu.PC += 2;
 }
 
@@ -318,8 +318,8 @@ void Chip8::Instruction::i_Fx33(Chip8::CPU &cpu, unsigned short opcode) {
 	throw std::runtime_error("tried to save bcd number out of memory");
 
   cpu.mem[cpu.I] = cpu.reg[x] / 100;
-  cpu.mem[cpu.I + 1] = (cpu.reg[x] / 10) % 10;
-  cpu.mem[cpu.I + 2] = cpu.reg[x] % 10;
+  cpu.mem[cpu.I + 1u] = (cpu.reg[x] / 10) % 10;
+  cpu.mem[cpu.I + 2u] = cpu.reg[x] % 10;
   cpu.PC += 2;
 }
 
@@ -360,6 +360,6 @@ void Chip8::Instruction::i_Fx65(Chip8::CPU &cpu, unsigned short opcode) {
   cpu.PC += 2;
 }
 
-void Chip8::Instruction::i_0000(Chip8::CPU &cpu, unsigned short opcode) {
+void Chip8::Instruction::i_0000(Chip8::CPU &cpu, [[maybe_unused]] unsigned short opcode) {
   cpu.PC += 2;
 }

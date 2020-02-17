@@ -5,7 +5,7 @@
 unsigned short Chip8::CPU::get_opcode() {
   try {
 	unsigned short big = mem.at(PC);
-	unsigned short small = mem.at(PC + 1);
+	unsigned short small = mem.at(PC + 1u);
 
 	return (big << 8u) + small;
   } catch (const std::out_of_range &e) {
