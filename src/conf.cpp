@@ -71,11 +71,9 @@ AppConf::AppConf(nlohmann::json app_data) {
 	  try {
 		keymap[key_name] = user_keymap.at(key_name);
 	  } catch (json::out_of_range &) {
-		throw std::runtime_error("must provide either no keymap at all or set all keys to some value");
+	    // no mapping
 	  } catch (json::type_error &e) {
-		std::cerr << "Error during keymap parsing at key " << key_name << ":" << std::endl;
-		std::cerr << e.what() << std::endl;
-		std::cerr << "Using default mapping for key " << key_name << "." << std::endl;
+	    throw std::runtime_error(std::string("error during keymap parsing at key") + key_name);
 	  }
 	}
   } catch (json::out_of_range &) {
